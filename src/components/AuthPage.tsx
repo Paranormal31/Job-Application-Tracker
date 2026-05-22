@@ -250,30 +250,6 @@ export const AuthPage: React.FC<Props> = ({ onLoginSuccess }) => {
     });
   };
 
-  const loginDemoUser = () => {
-    setError(null);
-    setSuccess(null);
-
-    const users = getRegisteredUsers();
-    let demoUser = users.find(u => u.email === 'demo@careerpath.com');
-
-    if (!demoUser) {
-      demoUser = {
-        id: 'demo-user-id',
-        username: 'Sarthak',
-        email: 'demo@careerpath.com',
-        password: 'password123'
-      };
-      localStorage.setItem('careerpath_users', JSON.stringify([...users, demoUser]));
-    }
-
-    onLoginSuccess({
-      id: demoUser.id,
-      username: demoUser.username,
-      email: demoUser.email
-    });
-  };
-
   return (
     <div className="auth-container">
       <div className="auth-background-shapes">
@@ -448,17 +424,6 @@ export const AuthPage: React.FC<Props> = ({ onLoginSuccess }) => {
           </form>
         )}
 
-        <div className="auth-divider">
-          <span>or speed test</span>
-        </div>
-
-        <button type="button" className="btn btn-secondary demo-btn" onClick={loginDemoUser}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          Quick Demo Login
-        </button>
       </div>
     </div>
   );
