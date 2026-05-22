@@ -181,7 +181,7 @@ export const ApplicationForm: React.FC<Props> = ({ onAdd, onClose, defaultCheckl
               )}
             </button>
             <label htmlFor="form-use-template" style={{ cursor: 'pointer', userSelect: 'none', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
-              Prepopulate with standard milestones (Unchecked recommended: let the AI Job Co-Pilot auto-generate custom steps!)
+              Prepopulate with standard milestones
             </label>
           </div>
 
