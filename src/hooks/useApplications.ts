@@ -133,94 +133,6 @@ export const useApplications = (userId: string | null) => {
     );
   };
 
-  // Helper to load rich demonstration data
-  const loadDemoData = () => {
-    const demoApps: Application[] = [
-      {
-        id: 'demo-1',
-        company: 'Google',
-        position: 'Senior Frontend Engineer',
-        status: 'Interviewing',
-        dateApplied: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 14 days ago
-        location: 'Hybrid (Mountain View)',
-        salary: '₹185,000 - ₹220,000',
-        jobUrl: 'careers.google.com',
-        notes: 'Passed the Initial Recruiter Call. First round of coding interview went great. Next is the Systems Design round. Preparing STAR interview answers for behaviorals.',
-        checklist: STANDARD_CHECKLIST_TEMPLATES.map((label, idx) => ({
-          id: `demo-1-item-${idx}`,
-          label,
-          completed: idx < 5 // 5 of 8 completed
-        }))
-      },
-      {
-        id: 'demo-2',
-        company: 'Stripe',
-        position: 'Tech Lead - Payments Core',
-        status: 'Offered',
-        dateApplied: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 25 days ago
-        location: 'Remote (US)',
-        salary: '₹200,000 - ₹240,000',
-        jobUrl: 'stripe.com/jobs',
-        notes: 'Got the verbal offer! Need to review equity distribution and negotiate the sign-on bonus. Spoke to team lead, culture seems outstanding.',
-        checklist: STANDARD_CHECKLIST_TEMPLATES.map((label, idx) => ({
-          id: `demo-2-item-${idx}`,
-          label,
-          completed: idx < 6 // 6 of 8 completed
-        }))
-      },
-      {
-        id: 'demo-3',
-        company: 'Airbnb',
-        position: 'Staff Product Designer',
-        status: 'Applied',
-        dateApplied: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 4 days ago
-        location: 'Remote (Global)',
-        salary: '₹190,000 - ₹215,000',
-        jobUrl: 'airbnb.com/careers',
-        notes: 'Referred by Michael G. Submitted resume and custom cover letter highlighting mobile experiences. Reached out to the hiring manager on LinkedIn.',
-        checklist: STANDARD_CHECKLIST_TEMPLATES.map((label, idx) => ({
-          id: `demo-3-item-${idx}`,
-          label,
-          completed: idx < 3 // 3 of 8 completed
-        }))
-      },
-      {
-        id: 'demo-4',
-        company: 'Figma',
-        position: 'UI & Design Systems Engineer',
-        status: 'Wishlist',
-        dateApplied: new Date().toISOString().split('T')[0],
-        location: 'Hybrid (San Francisco)',
-        salary: '₹160,000 - ₹190,000',
-        jobUrl: 'figma.com/careers',
-        notes: 'Love their product and toolset! Reached out to a designer on LinkedIn to ask about team layout and project scope. Planning to customize resume this weekend.',
-        checklist: STANDARD_CHECKLIST_TEMPLATES.map((label, idx) => ({
-          id: `demo-4-item-${idx}`,
-          label,
-          completed: idx < 1 // Only 1 completed (Research)
-        }))
-      },
-      {
-        id: 'demo-5',
-        company: 'Netflix',
-        position: 'Senior UI Developer',
-        status: 'Rejected',
-        dateApplied: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-        location: 'Hybrid (Los Gatos)',
-        salary: '₹230,000 - ₹280,000',
-        jobUrl: 'netflix.com/careers',
-        notes: 'Completed full screen. They decided to go with another candidate who has deeper experience with custom video streaming pipelines. Recruiter provided nice feedback.',
-        checklist: STANDARD_CHECKLIST_TEMPLATES.map((label, idx) => ({
-          id: `demo-5-item-${idx}`,
-          label,
-          completed: idx < 4 // 4 completed before rejection
-        }))
-      }
-    ];
-
-    setApplications(demoApps);
-  };
-
   const clearAll = () => {
     setApplications([]);
   };
@@ -285,7 +197,6 @@ export const useApplications = (userId: string | null) => {
     updateChecklistItem,
     DEFAULT_CHECKLIST_TEMPLATES,
     STANDARD_CHECKLIST_TEMPLATES,
-    loadDemoData,
     clearAll,
     resumes,
     addResume,
