@@ -434,17 +434,176 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.horizontal-cards-scroll {
+/* Collapsible Date Groups & Vertical Timeline */
+.date-groups-timeline {
   display: flex;
-  gap: 1.25rem;
-  overflow-x: auto;
-  padding: 0.5rem 0.25rem 1rem 0.25rem;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+  position: relative;
 }
 
-.horizontal-card-wrapper {
-  flex: 0 0 320px; /* Fixed width for horizontal scrolling */
+.date-group-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Timeline Vertical connector line */
+.timeline-connector-line {
+  position: absolute;
+  left: 11px;
+  top: 32px;
+  bottom: -16px;
+  width: 2px;
+  opacity: 0.25;
+}
+
+.date-group-node:last-child .timeline-connector-line {
+  display: none;
+}
+
+/* Color codes for the timeline connectors based on stage */
+.stage-section.wishlist .timeline-connector-line {
+  background: linear-gradient(to bottom, var(--color-wishlist) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+.stage-section.applied .timeline-connector-line {
+  background: linear-gradient(to bottom, var(--color-applied) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+.stage-section.interviewing .timeline-connector-line {
+  background: linear-gradient(to bottom, var(--color-interview) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+.stage-section.offered .timeline-connector-line {
+  background: linear-gradient(to bottom, var(--color-offered) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+.stage-section.rejected .timeline-connector-line {
+  background: linear-gradient(to bottom, var(--color-rejected) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+.stage-section.accepted .timeline-connector-line {
+  background: linear-gradient(to bottom, var(--color-accepted) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.date-group-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.date-group-header:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
+}
+
+.timeline-marker {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: relative;
+}
+
+.timeline-marker-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+/* Markers colors based on stage */
+.stage-section.wishlist .timeline-marker-dot {
+  background: var(--color-wishlist);
+  box-shadow: 0 0 10px var(--color-wishlist), 0 0 2px 1px rgba(255, 255, 255, 0.2);
+}
+.stage-section.applied .timeline-marker-dot {
+  background: var(--color-applied);
+  box-shadow: 0 0 10px var(--color-applied), 0 0 2px 1px rgba(255, 255, 255, 0.2);
+}
+.stage-section.interviewing .timeline-marker-dot {
+  background: var(--color-interview);
+  box-shadow: 0 0 10px var(--color-interview), 0 0 2px 1px rgba(255, 255, 255, 0.2);
+}
+.stage-section.offered .timeline-marker-dot {
+  background: var(--color-offered);
+  box-shadow: 0 0 10px var(--color-offered), 0 0 2px 1px rgba(255, 255, 255, 0.2);
+}
+.stage-section.rejected .timeline-marker-dot {
+  background: var(--color-rejected);
+  box-shadow: 0 0 10px var(--color-rejected), 0 0 2px 1px rgba(255, 255, 255, 0.2);
+}
+.stage-section.accepted .timeline-marker-dot {
+  background: var(--color-accepted);
+  box-shadow: 0 0 10px var(--color-accepted), 0 0 2px 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Expand indicator for group headers */
+.date-group-header:hover .timeline-marker-dot {
+  transform: scale(1.3);
+}
+
+.date-group-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.date-chevron {
+  color: var(--text-muted);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.date-chevron.expanded {
+  transform: rotate(90deg);
+  color: var(--text-primary);
+}
+
+.date-group-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.date-group-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.date-group-content {
+  padding: 0.75rem 0.5rem 1.5rem 2.75rem;
+  animation: slideDownFade 0.3s ease-out;
+}
+
+.date-group-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.vertical-card-wrapper {
+  width: 100%;
+  animation: cardFadeIn 0.4s ease-out;
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .empty-stage-placeholder {
